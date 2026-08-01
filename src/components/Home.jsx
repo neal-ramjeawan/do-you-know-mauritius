@@ -2,7 +2,7 @@ import { DodoMark, Footprint, ClockIcon, BadgeIcon } from './Marks.jsx'
 import { TOTAL_QUESTIONS, CATEGORIES } from '../data/questions.js'
 import { hasPlayedDailyToday } from '../lib/badges.js'
 
-export default function Home({ onStart, onStartDaily, onViewLeaderboard, onViewBadges }) {
+export default function Home({ onStart, onStartDaily, onViewBadges }) {
   const playedToday = hasPlayedDailyToday()
 
   return (
@@ -41,14 +41,7 @@ export default function Home({ onStart, onStartDaily, onViewLeaderboard, onViewB
           </button>
         </div>
 
-        <div className="mt-4 flex items-center gap-4">
-          <button
-            onClick={onViewLeaderboard}
-            className="font-mono text-xs text-shell-300/50 hover:text-turmeric-400 transition-colors underline underline-offset-4 decoration-shell-300/20"
-          >
-            Leaderboard
-          </button>
-          <span className="text-shell-300/20">·</span>
+        <div className="mt-4 flex items-center justify-center gap-4">
           <button
             onClick={onViewBadges}
             className="inline-flex items-center gap-1.5 font-mono text-xs text-shell-300/50 hover:text-turmeric-400 transition-colors underline underline-offset-4 decoration-shell-300/20"

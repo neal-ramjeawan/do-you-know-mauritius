@@ -1,26 +1,29 @@
 # do-you-know-mauritius
 
-A trivia site, single subject: Mauritius. 150 questions across 8 categories
-(history, geography, wildlife, culture, food, people, sports, misc),
-difficulty-tagged, served in fixed 10-question rounds. Frontend is React +
-Vite + Tailwind, ships as an installable/offline-capable PWA. Leaderboard
-is optional, same-origin, backed by Cloudflare Pages Functions + D1 — no
-accounts anywhere, not for players, not for me running it.
+This is a small, static trivia app about Mauritius. It serves 150 questions
+across eight categories, plays them in fixed 10-question rounds, and ships as
+an installable, offline-capable PWA.
 
-UI is branded "Zwazo" (Mauritian Creole for "bird") — the dodo shows up as
-the mascot, the progress indicator, and the app icon.
+The project is intentionally boring in the best way:
 
-Pushing this to GitHub and getting it live on Cloudflare Pages: see
-[`DEPLOYMENT.md`](./DEPLOYMENT.md).
+- one frontend bundle
+- no auth flow
+- no database
+- no runtime secrets in the browser
+- a deploy path that stays close to the happy path on Cloudflare Pages
+
+The UI is branded "Zwazo" (Mauritian Creole for "bird"). The dodo shows up
+as the mascot, the progress indicator, and the app icon.
+
+If you want the deployment runbook, start with [`DEPLOYMENT.md`](./DEPLOYMENT.md).
 
 ## Stack
 
-- React 18, Vite 5, Tailwind CSS
-- `vite-plugin-pwa` — manifest + service worker, generated at build time
-- Vitest + React Testing Library — unit and component tests
-- Cloudflare Pages + Pages Functions + D1 — static hosting and the
-  optional leaderboard API, one project, one deploy
-- GitHub Actions — CI (build + test) and deploy, two workflows total
+- React 18 + Vite 5 + Tailwind CSS for the app shell
+- `vite-plugin-pwa` for manifest and service-worker generation
+- Vitest + React Testing Library for the test suite
+- GitHub Actions for CI and deploy
+- Cloudflare Pages for static hosting
 
 ## Local setup
 
@@ -29,98 +32,77 @@ npm install
 npm run dev
 ```
 
-Zero configuration needed — there's no env var to set. The leaderboard
-client always calls `/api/scores`; when that route isn't reachable (which
-is the case under plain `npm run dev`, since Vite alone doesn't serve
-`/functions`) it falls back to `localStorage` automatically.
+That is enough to get the app running locally. There is no env-var wiring to
+figure out, and the browser-side state stays local to the device.
+
+Useful commands:
 
 ```bash
-npm test              # vitest, single run
-npm run test:watch    # vitest, watch mode
-npm run build
-npm run preview
+npm test              # run the test suite once
+npm run test:watch    # interactive watch mode
+npm run build         # production bundle for deployment
+npm run preview       # preview the built site locally
 ```
 
-To exercise the real API locally (D1 included), see "Leaderboard backend"
-below — `npm run pages:dev` builds and runs the whole stack through
-Wrangler instead of Vite's dev server.
+The app is designed so the browser does the right thing without needing a
+server-backed dependency. That keeps the build simple and the hosting cost very
+small.
 
 ## Project layout
 
-```
+```text
 .github/workflows/
-  ci.yml                   npm test + npm run build, on PRs / non-main branches
-  deploy.yml                 same, then wrangler pages deploy, on push to main
-functions/
-  api/
-    scores.js                GET/POST /api/scores — the leaderboard endpoint
-    _validate.js               pure validation helpers (underscore = not a route)
-    _validate.test.js           unit tests for the above
-public/                    PWA icons (svg + rasterized png set)
+  ci.yml                   runs npm test + npm run build on PRs and non-main branches
+  deploy.yml               same checks, then deploys dist/ to Cloudflare Pages on main
+public/                    PWA icons and static assets
 src/
-  data/questions.js        question bank: id, category, difficulty, options, answer, fact
+  data/questions.js        question bank: category, difficulty, options, answer, fact
   lib/
-    quiz.js                 round building — shuffle, difficulty filter, pluggable rng
-    dailyChallenge.js         seeded PRNG + date helpers, backs the daily challenge
-    badges.js                  badge unlock logic, localStorage-persisted
-    leaderboard.js               fetch client for /api/scores + localStorage fallback
-  components/               screens + shared UI, one state machine in App.jsx
-  App.jsx                  screen router (home/category/quiz/results/leaderboard/badges)
-  index.css                Tailwind layers + design tokens
-schema.sql                 D1 schema (scores, submissions)
-wrangler.jsonc              Pages project config — D1 binding, build output dir
-vite.config.js              base path ('./') + PWA plugin + vitest config
+    quiz.js                round building, shuffle logic, difficulty filtering
+    dailyChallenge.js      seeded PRNG + date helpers for the daily challenge
+    badges.js              badge unlock logic, stored in browser localStorage
+  components/              screens + shared UI
+  App.jsx                 state-driven screen router
+  index.css               Tailwind layers + design tokens
+wrangler.jsonc             Pages project config and build output dir
+vite.config.js            Vite + PWA + Vitest configuration
 ```
 
-No router library — it's a single page with five screens, a plain
-`useState` switch in `App.jsx` covers it. No separate backend project
-either — the leaderboard API lives in `/functions` inside this same repo
-and deploys together with the site as one Cloudflare Pages project.
+This is a single-page app with a small state machine in `App.jsx`. No router
+library, no backend project, and no extra moving parts beyond the static build
+and the deployment pipeline.
 
 ## Testing
 
-Vitest, `jsdom` environment, React Testing Library for the one component
-test. Covers the pure logic that's actually worth covering:
+The test suite is intentionally focused on the parts that are easiest to keep
+correct and hardest to regress:
 
-- `src/lib/quiz.js` — round building, difficulty filtering, seeded-rng
-  determinism
-- `src/lib/dailyChallenge.js` — PRNG determinism, date-key/day-diff helpers
-- `src/lib/badges.js` — unlock conditions, streak bookkeeping
-- `functions/api/_validate.js` — every rule the API enforces on a
-  submission, tested without mocking D1 or the Pages runtime
-- `src/components/QuestionCard.jsx` — renders, locks in an answer, shows
-  correct/incorrect state
+- `src/lib/quiz.js` — round generation, difficulty filtering, deterministic RNG behavior
+- `src/lib/dailyChallenge.js` — seeded date logic for the daily challenge
+- `src/lib/badges.js` — badge unlocks and streak persistence logic
+- `src/components/QuestionCard.jsx` — rendering and answer-state behavior
 
-Both `ci.yml` and `deploy.yml` run `npm test` before `npm run build`; a
-failing test blocks the deploy.
+Both CI and deploy workflows run `npm test` before `npm run build`; if the
+suite fails, the pipeline does not continue.
 
 ## Architecture notes
 
-- **Round building** (`src/lib/quiz.js`) takes an injectable RNG. Normal
-  play uses `Math.random`; the daily challenge passes a seeded PRNG
-  (`dailyChallenge.js`, mulberry32) so every player gets the same 10
-  questions in the same order on a given calendar date, with no server
-  coordinating it.
-- **Leaderboard client** (`src/lib/leaderboard.js`) is a thin `fetch`
-  wrapper around `/api/scores`, same origin as the site, with
-  `localStorage` as the automatic fallback if that call fails for any
-  reason (route not deployed, offline, D1 down). No flag to configure,
-  no URL to get wrong.
-- **Leaderboard API** (`functions/api/scores.js`) is a Cloudflare Pages
-  Function — same deploy as the static site, same domain, so there's no
-  CORS to configure at all. Validation logic lives in `_validate.js`,
-  split out specifically so it's testable as plain functions.
-- **Badges/streaks** are `localStorage`-only, no server round-trip. Fine
-  for this use case — losing badge state on a cleared browser isn't a
-  real cost.
-- **Questions are authored with the correct answer at `options[0]`** —
-  `buildRound` shuffles options and remaps the answer index at render
-  time. Keeps the data file readable; don't hand-shuffle when adding
-  questions.
+- **Round building** uses an injectable RNG. Normal play uses `Math.random`,
+  while the daily challenge uses a seeded PRNG so everyone sees the same 10
+  questions in the same order for a given date.
+- **Badges and streaks** are browser-local, not server-backed. That is a good
+  fit for a simple hobby app where the cost of losing local progress is low.
+- **Question data is authored in a readable shape** with the correct answer at
+  `options[0]`. The round builder shuffles the options at render time, which
+  keeps the source data simple and avoids hand-maintained shuffles.
 
 ## Feature implementation notes
 
-**Badges** (`src/lib/badges.js`, `localStorage`, no server round-trip):
+**Badges** (`src/lib/badges.js`) are stored in the browser via `localStorage`.
+That keeps the feature easy to reason about and avoids introducing a backend
+just to persist a small amount of per-device state.
+
+Badge IDs are:
 
 | id | condition |
 |----|-----------|
@@ -130,137 +112,59 @@ failing test blocks the deploy.
 | `island-native` | perfect round in all 8 categories (cumulative) |
 | `daily-3` / `daily-7` | daily challenge streak, consecutive calendar days |
 
-**Daily challenge** — `buildRound('all', 10, { rng: rngForDate(todayKey()) })`.
-Same seed → same shuffle → same 10 questions for every player on a given
-date. Leaderboard entries use `daily-YYYY-MM-DD` as the category id, so
-each day gets its own board without any extra schema.
+**Daily challenge** uses a seeded PRNG so every player on the same calendar
+date gets the same 10 questions in the same order. That makes the challenge
+predictable without needing a server-side coordinator.
 
-**Share card** (`ShareCard.jsx`) — drawn on a `<canvas>` at 1200×630, no
-image library. Reuses the dodo SVG path data (`Marks.jsx`) via `Path2D` so
-the raster output matches the SVG mascot. Share flow falls back in order:
-`navigator.share` with a file attachment → `navigator.share` text-only →
-clipboard copy. Download button just calls `canvas.toDataURL`.
+**Share card** (`ShareCard.jsx`) is drawn on a `<canvas>` at 1200×630 with no
+image library. It reuses the dodo SVG path data from `Marks.jsx` via `Path2D`
+so the exported card stays visually aligned with the app design.
 
-**PWA** — `vite-plugin-pwa` handles manifest + service worker generation
-at build time, nothing manual to register. It's disabled in `npm run dev`
-by design (Vite plugin default); test the installed-app path with
-`npm run build && npm run preview`.
+**PWA** support is generated at build time by `vite-plugin-pwa`. The app is
+intended to work as a normal static site in the browser and also to behave
+well as an installed web app when previewed after `npm run build`.
 
-**Accessibility** — answer options use the `radiogroup`/`radio` pattern
-with `aria-checked`; answer feedback goes through an `aria-live="polite"`
-region; focus moves to "Next question" programmatically after an answer
-locks in; the footprint progress trail is `aria-hidden` (the same "Question
-X of Y" info exists as real text on the question card); leaderboard
-category tabs follow the ARIA `tablist`/`tab` pattern with Left/Right
-arrow-key navigation; skip-to-content link on every screen. Not run
-against a real screen reader or an automated audit (axe/Lighthouse) — see
-Backlog.
-
-## Leaderboard backend
-
-Cloudflare Pages Functions + D1, folded into the same project as the
-static site — not a separate service. Reasoning for Cloudflare specifically
-(over something like Firebase):
-
-- Free plan takes no payment method at signup — nothing to accidentally
-  leave enabled.
-- Free tier fails closed: hit a daily cap and the API returns errors
-  until reset, it doesn't bill. Getting charged requires deliberately
-  opening the dashboard and upgrading.
-- It's real server-side code, not declarative rules — `scores.js`
-  validates category/score/round-size/mode itself and rate-limits by
-  hashed IP, which is a step up from what something like Firestore
-  security rules can express.
-
-### One-time setup
-
-```bash
-npx wrangler login                 # authorizes the CLI, browser OAuth
-npm run d1:create                  # prints a database_id
-# → paste it into wrangler.jsonc, replacing REPLACE_WITH_YOUR_D1_DATABASE_ID
-npm run d1:migrate                 # applies schema.sql to the remote D1 db
-npx wrangler pages project create do-you-know-mauritius --production-branch=main
-npm run deploy                     # builds + wrangler pages deploy dist
-```
-
-`database_id` is an identifier, not a credential — fine to commit.
-
-### Local development against the real API
-
-```bash
-npm run d1:migrate:local           # local SQLite copy of the schema
-npm run pages:dev                  # builds, then wrangler pages dev dist
-```
-
-`wrangler pages dev` serves the static build and `/functions` from one
-local server, so `/api/scores` works exactly like production — no proxying,
-no separate process, no CORS to think about locally either.
-
-### CI deploy
-
-`deploy.yml` runs `npm test`, `npm run build`, then `wrangler pages
-deploy` on every push to `main`. Needs two repo secrets:
-
-- `CLOUDFLARE_API_TOKEN` — custom token, one permission: **Account →
-  Cloudflare Pages → Edit**, restricted to the specific account. Not the
-  personal login from `wrangler login` above — that stays on the laptop
-  and never touches GitHub.
-- `CLOUDFLARE_ACCOUNT_ID` — from the Cloudflare dashboard sidebar, or
-  `npx wrangler whoami`.
-
-Blast radius if the token leaks: someone can redeploy this one Pages
-project with different code. It can't touch D1 data directly, DNS, or
-billing.
-
-### What gets validated
-
-Every submission is checked server-side in `functions/api/_validate.js`,
-not trusted from the client — see the tests there for the exact rules
-(category shape, round size, score bounds, mode, IP-hash rate limit).
-Doesn't stop a scripted client from posting a plausible-looking fake
-score — there's no server-held answer key to check the submitted score
-against. Flagged in Backlog.
+**Accessibility** is handled with the usual web patterns: `radiogroup`/
+`radio` semantics, `aria-live` feedback, focus movement after an answer,
+keyboard-friendly tabbed navigation, and a skip-to-content link. The work is
+implemented with the behaviors in mind, rather than being validated with a
+formal audit pass in this repo.
 
 ## Deployment
 
-Two GitHub Actions pipelines:
+There are two GitHub Actions workflows:
 
-- `ci.yml` — `npm test` + `npm run build` on PRs and branches other than
-  `main`.
-- `deploy.yml` — same checks, then `wrangler pages deploy` on push to
-  `main`. The Cloudflare Pages project has to exist first (one-time
-  `wrangler pages project create`, see above) — the workflow deploys to
-  it, it doesn't create it.
+- `ci.yml` runs `npm test` and `npm run build` on pull requests and on
+  non-main branches.
+- `deploy.yml` does the same checks and then runs `wrangler pages deploy`
+  against the built `dist/` output on pushes to `main`.
+
+The important bit is that the Cloudflare Pages project has to exist already.
+Once that is in place, the deploy job simply pushes the static site bundle.
 
 ## Security notes
 
-- No auth, anywhere, by design. Trade-off: leaderboard integrity is
-  best-effort, not guaranteed. Mitigated via server-side validation +
-  per-IP rate limiting, not eliminated. Acceptable for a hobby
-  leaderboard; wouldn't be for anything where score integrity matters.
-- Same-origin API means there's no CORS surface to misconfigure — no
-  wildcard origin, no allowlist to keep in sync.
-- The Cloudflare API token used by `deploy.yml` is scoped to Pages:Edit
-  on one account only — no D1, DNS, or billing access.
-- D1's `database_id` lives in `wrangler.jsonc`, committed to the repo.
-  It's an identifier, not a credential — knowing it grants no access on
-  its own.
+- There is no auth layer in the app by design.
+- The browser keeps its own local state; the deployment pipeline only needs
+  the standard Cloudflare Pages credentials that the workflow can consume.
+- The deploy token is intentionally scoped down to the Pages project scope
+  that the workflow needs.
 
 ## Cost
 
-$0 as configured, indefinitely, assuming:
+This repo is set up to stay on the cheap side of the spectrum:
 
-- The GitHub repo stays public (Actions is free, unlimited, for public
-  repos — this only affects CI, since Cloudflare Pages handles hosting
-  now, not GitHub Pages).
-- The Cloudflare account stays on the free plan (no card on file, so
-  there's no path to an unexpected bill — Pages/Functions/D1 just stop
-  serving once a daily cap is hit, which for this traffic profile won't
-  happen).
+- the frontend is static
+- the CI pipeline is the GitHub-hosted workflow cost model
+- the deployed app stays in Cloudflare Pages without needing a separate
+  runtime service
+
+If you keep the repo public and stay on the free Cloudflare Pages plan, the
+layout described here is the intended low-cost path.
 
 ## Adding questions
 
-Entries in `src/data/questions.js`:
+Entries in `src/data/questions.js` follow this shape:
 
 ```js
 {
@@ -269,41 +173,24 @@ Entries in `src/data/questions.js`:
   difficulty: 'medium',        // easy | medium | hard
   q: 'Question text?',
   options: ['Correct answer', 'Wrong', 'Wrong', 'Wrong'],
-  answer: 0,                    // always index 0 — shuffled at render time
+  answer: 0,                    // always index 0; shuffling happens at render time
   fact: 'Optional one-liner shown after answering.',
 }
 ```
 
 ## Backlog / known gaps
 
-- **i18n scaffolding exists but isn't wired up.** `src/i18n/strings.js`
-  (English + French UI copy) and `src/i18n/LanguageContext.jsx` (a
-  `t()`-based context provider, localStorage-persisted) are written and
-  tested-by-hand but no component actually imports them yet — the app is
-  English-only right now. `src/data/questions.fr.js` has French
-  translations for all 150 questions, also not yet wired into
-  `buildRound`. Next step: wrap `App.jsx` in `LanguageProvider`, add a
-  toggle in `Header.jsx`, and swap components over to `t('key')`
-  one at a time. Deliberately left Mauritian Creole out of scope —
-  translating 150 factual quiz questions in a language I don't have
-  strong, reliable training data on is a real accuracy risk, not
-  something to guess at.
-- Score validation checks shape and range, not the actual question set —
-  no server-held answer key to check submissions against. Would need to
-  port question data into the Function to close that gap; not done
-  because the payoff doesn't justify it for this traffic profile.
-- No screen-reader / axe audit run against the deployed build — the
-  accessibility work (radiogroup pattern, live regions, focus management,
-  tablist keyboard nav) is done by pattern, not verified against a real
-  AT session.
-- Difficulty filter is a pre-round pick, not adaptive mid-round.
-- No sound/haptic feedback.
+- **i18n scaffolding exists but is not wired into the runtime UI yet.**
+  There is English/French copy in `src/i18n/strings.js` and a provider in
+  `src/i18n/LanguageContext.jsx`, but the app is still effectively English-only.
+- **No formal accessibility audit** has been run against the deployed build.
+  The semantics are in place, but this repo has not yet gone through a real
+  screen-reader or axe-style validation pass.
+- **Difficulty is selected before the round starts**, not adapted mid-round.
+- **No sound or haptic feedback** yet.
 
 ## Deploying elsewhere
 
-If Cloudflare Pages isn't the target: `dist/` after `npm run build` is a
-static bundle and deploys as-is to any static host, but note that without
-the Cloudflare deploy, `/api/scores` doesn't exist anywhere — you'd need
-to either stand the Functions up as a separate Worker again (see git
-history before the Pages consolidation) or accept a localStorage-only
-leaderboard.
+If Cloudflare Pages is not the target, `dist/` after `npm run build` is a
+plain static bundle and will deploy to any static host. The app does not
+require a server-side runtime to work.

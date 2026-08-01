@@ -13,17 +13,14 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
 
       - run: npm ci
       - run: npm test
       - run: npm run build
 
-      # wrangler.jsonc must already have a real D1 database_id committed
-      # (npm run d1:create, done once locally — see README). The Pages
-      # project itself must also already exist (npm run deploy locally,
-      # once, or `wrangler pages project create`) before this can deploy.
+      # The Pages project itself must already exist before this can deploy.
       - name: Deploy to Cloudflare Pages
         run: npx wrangler pages deploy dist --project-name=do-you-know-mauritius --branch=main
         env:

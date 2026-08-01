@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import { DodoMark, Footprint, BadgeIcon } from './Marks.jsx'
-import { getSavedName, submitScore } from '../lib/leaderboard.js'
 import { recordRound } from '../lib/badges.js'
 import ShareCard from './ShareCard.jsx'
 
@@ -18,11 +17,9 @@ export default function ResultsScreen({
   categoryLabel,
   mode,
   isDaily,
-  leaderboardCategoryId,
   onReplay,
   onChangeCategory,
   onHome,
-  onViewLeaderboard,
 }) {
   const total = answers.length
   const score = answers.filter((a) => a.correct).length
@@ -30,8 +27,6 @@ export default function ResultsScreen({
   const tier = tierFor(pct)
   const missed = answers.filter((a) => !a.correct)
 
-  const [name, setName] = useState(getSavedName())
-  const [status, setStatus] = useState('idle') // idle | saving | saved
   const [newBadges, setNewBadges] = useState([])
 
   useEffect(() => {
@@ -40,14 +35,6 @@ export default function ResultsScreen({
     // Only ever run once per results screen mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  async function handleSubmitScore(e) {
-    e.preventDefault()
-    if (status === 'saving' || status === 'saved') return
-    setStatus('saving')
-    await submitScore({ categoryId: leaderboardCategoryId, name, score, total, mode })
-    setStatus('saved')
-  }
 
   return (
     <div className="px-5 sm:px-8 pt-6 pb-16 max-w-2xl mx-auto">
@@ -74,39 +61,6 @@ export default function ResultsScreen({
               </div>
             ))}
           </div>
-        )}
-
-        {status !== 'saved' ? (
-          <form onSubmit={handleSubmitScore} className="mt-7 w-full max-w-xs">
-            <label htmlFor="player-name" className="sr-only">
-              Your name
-            </label>
-            <div className="flex items-center gap-2">
-              <input
-                id="player-name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Your name"
-                maxLength={24}
-                className="flex-1 rounded-full border border-shell-300/15 bg-depths-800/60 px-4 py-2.5 text-sm text-shell-100 placeholder:text-shell-300/30 focus:border-turmeric-500/50"
-              />
-              <button
-                type="submit"
-                disabled={status === 'saving'}
-                className="flex-shrink-0 bg-lagoon-500 hover:bg-lagoon-400 text-depths-950 font-semibold text-sm px-4 py-2.5 rounded-full transition-colors disabled:opacity-60"
-              >
-                {status === 'saving' ? 'Saving…' : 'Save score'}
-              </button>
-            </div>
-          </form>
-        ) : (
-          <button
-            onClick={onViewLeaderboard}
-            className="mt-7 inline-flex items-center gap-2 text-sm text-lagoon-400 hover:text-lagoon-300"
-          >
-            <Footprint className="w-4 h-4" />
-            Score saved — view the leaderboard
-          </button>
         )}
 
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">

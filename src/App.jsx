@@ -4,7 +4,6 @@ import Home from './components/Home.jsx'
 import CategorySelect from './components/CategorySelect.jsx'
 import Quiz from './components/Quiz.jsx'
 import ResultsScreen from './components/ResultsScreen.jsx'
-import Leaderboard from './components/Leaderboard.jsx'
 import Badges from './components/Badges.jsx'
 import { buildRound, categoryById } from './lib/quiz.js'
 import { todayKey, rngForDate } from './lib/dailyChallenge.js'
@@ -12,7 +11,7 @@ import { todayKey, rngForDate } from './lib/dailyChallenge.js'
 const ROUND_SIZE = 10
 
 export default function App() {
-  const [screen, setScreen] = useState('home') // home | category | quiz | results | leaderboard | badges
+  const [screen, setScreen] = useState('home') // home | category | quiz | results | badges
   const [categoryId, setCategoryId] = useState(null)
   const [mode, setMode] = useState('classic')
   const [difficulty, setDifficulty] = useState('all')
@@ -26,8 +25,6 @@ export default function App() {
     : categoryId === 'all'
       ? 'All Categories'
       : categoryById(categoryId)?.label ?? ''
-
-  const leaderboardCategoryId = isDaily ? `daily-${todayKey()}` : categoryId
 
   function startCategory(id, opts = {}) {
     setCategoryId(id)
@@ -69,11 +66,6 @@ export default function App() {
     setScreen('category')
   }
 
-  function goLeaderboard(fromScreen = 'home') {
-    setPreviousScreen(fromScreen)
-    setScreen('leaderboard')
-  }
-
   function goBadges(fromScreen = 'home') {
     setPreviousScreen(fromScreen)
     setScreen('badges')
@@ -95,7 +87,6 @@ export default function App() {
           <Home
             onStart={goCategory}
             onStartDaily={startDaily}
-            onViewLeaderboard={() => goLeaderboard('home')}
             onViewBadges={() => goBadges('home')}
           />
         )}
@@ -110,17 +101,9 @@ export default function App() {
             categoryLabel={categoryLabel}
             mode={mode}
             isDaily={isDaily}
-            leaderboardCategoryId={leaderboardCategoryId}
             onReplay={replay}
             onChangeCategory={goCategory}
             onHome={goHome}
-            onViewLeaderboard={() => goLeaderboard('results')}
-          />
-        )}
-        {screen === 'leaderboard' && (
-          <Leaderboard
-            initialCategory={leaderboardCategoryId ?? 'all'}
-            onBack={() => setScreen(previousScreen)}
           />
         )}
         {screen === 'badges' && <Badges onBack={() => setScreen(previousScreen)} />}
