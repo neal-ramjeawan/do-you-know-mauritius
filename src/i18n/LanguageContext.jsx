@@ -4,6 +4,12 @@ import { STRINGS } from './strings.js'
 const LANG_KEY = 'zwazo-lang'
 const LanguageContext = createContext(null)
 
+const fallbackLanguageContext = {
+  lang: 'en',
+  setLang: () => {},
+  t: (path) => lookup(STRINGS.en, path) ?? path,
+}
+
 function getInitialLang() {
   try {
     const saved = localStorage.getItem(LANG_KEY)
@@ -52,6 +58,5 @@ export function LanguageProvider({ children }) {
 
 export function useLanguage() {
   const ctx = useContext(LanguageContext)
-  if (!ctx) throw new Error('useLanguage must be used within a LanguageProvider')
-  return ctx
+  return ctx ?? fallbackLanguageContext
 }

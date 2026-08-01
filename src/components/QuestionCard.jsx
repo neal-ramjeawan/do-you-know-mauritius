@@ -1,3 +1,5 @@
+import { useLanguage } from '../i18n/LanguageContext.jsx'
+
 const LETTERS = ['A', 'B', 'C', 'D']
 
 const DIFFICULTY_STYLES = {
@@ -9,12 +11,13 @@ const DIFFICULTY_STYLES = {
 export default function QuestionCard({ question, selected, onSelect, questionNumber, totalQuestions }) {
   const answered = selected !== null
   const timedOut = selected === -1
+  const { t } = useLanguage()
 
   return (
     <div>
       <div className="flex items-center gap-2.5">
         <span className="font-mono text-xs text-shell-300/40">
-          Question {questionNumber} of {totalQuestions}
+          {t('questionCard.questionLabelPrefix')} {questionNumber} {t('questionCard.questionLabelMiddle')} {totalQuestions}
         </span>
         {question.difficulty && (
           <span
@@ -22,7 +25,7 @@ export default function QuestionCard({ question, selected, onSelect, questionNum
               DIFFICULTY_STYLES[question.difficulty] || 'text-shell-300/50 border-shell-300/20'
             }`}
           >
-            {question.difficulty}
+            {t(`difficulties.${question.difficulty}`)}
           </span>
         )}
       </div>
@@ -31,7 +34,7 @@ export default function QuestionCard({ question, selected, onSelect, questionNum
         {question.q}
       </p>
 
-      <div role="radiogroup" aria-label={`Answer options for question ${questionNumber}`} className="mt-6 space-y-2.5">
+      <div role="radiogroup" aria-label={`${t('questionCard.answerOptionsAriaPrefix')} ${questionNumber}`} className="mt-6 space-y-2.5">
         {question.options.map((option, i) => {
           const isCorrect = i === question.answer
           const isSelected = i === selected
@@ -70,7 +73,7 @@ export default function QuestionCard({ question, selected, onSelect, questionNum
       </div>
 
       {timedOut && (
-        <p className="mt-4 text-sm text-coral-400">Time ran out on that one.</p>
+        <p className="mt-4 text-sm text-coral-400">{t('questionCard.timeRanOut')}</p>
       )}
 
       {answered && question.fact && (

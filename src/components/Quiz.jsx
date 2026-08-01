@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import ProgressTrail from './ProgressTrail.jsx'
 import QuestionCard from './QuestionCard.jsx'
 import { ClockIcon } from './Marks.jsx'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 const SPEED_SECONDS = 15
 
@@ -12,6 +13,7 @@ export default function Quiz({ round, categoryLabel, mode, onFinish, onQuit }) {
   const [secondsLeft, setSecondsLeft] = useState(SPEED_SECONDS)
   const nextButtonRef = useRef(null)
   const liveRegionRef = useRef(null)
+  const { t } = useLanguage()
 
   const question = round[index]
   const isLast = index === round.length - 1
@@ -69,10 +71,10 @@ export default function Quiz({ round, categoryLabel, mode, onFinish, onQuit }) {
       <div className="flex items-center justify-between mb-1">
         <span className="font-mono text-xs uppercase tracking-widest text-shell-300/50">
           {categoryLabel}
-          {timed && ' · Speed'}
+          {timed && ` ${t('quiz.speedSuffix')}`}
         </span>
         <button onClick={onQuit} className="font-mono text-xs text-shell-300/40 hover:text-shell-300/70">
-          Quit
+          {t('quiz.quit')}
         </button>
       </div>
 
@@ -109,7 +111,7 @@ export default function Quiz({ round, categoryLabel, mode, onFinish, onQuit }) {
           onClick={handleNext}
           className="mt-7 w-full sm:w-auto inline-flex justify-center items-center bg-turmeric-500 hover:bg-turmeric-400 text-basalt font-semibold px-6 py-3 rounded-full transition-colors"
         >
-          {isLast ? 'See results' : 'Next question'}
+          {isLast ? t('quiz.seeResults') : t('quiz.nextQuestion')}
         </button>
       )}
     </div>

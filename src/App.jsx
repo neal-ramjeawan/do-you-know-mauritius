@@ -7,6 +7,7 @@ import ResultsScreen from './components/ResultsScreen.jsx'
 import Badges from './components/Badges.jsx'
 import { buildRound, categoryById } from './lib/quiz.js'
 import { todayKey, rngForDate } from './lib/dailyChallenge.js'
+import { useLanguage } from './i18n/LanguageContext.jsx'
 
 const ROUND_SIZE = 10
 
@@ -19,19 +20,20 @@ export default function App() {
   const [round, setRound] = useState([])
   const [answers, setAnswers] = useState([])
   const [previousScreen, setPreviousScreen] = useState('home')
+  const { lang, t } = useLanguage()
 
   const categoryLabel = isDaily
-    ? 'Daily Challenge'
+    ? t('common.dailyChallenge')
     : categoryId === 'all'
-      ? 'All Categories'
-      : categoryById(categoryId)?.label ?? ''
+      ? t('common.allCategories')
+      : t(`categories.${categoryId}.label`) ?? categoryById(categoryId)?.label ?? ''
 
   function startCategory(id, opts = {}) {
     setCategoryId(id)
     setMode(opts.mode ?? 'classic')
     setDifficulty(opts.difficulty ?? 'all')
     setIsDaily(false)
-    setRound(buildRound(id, ROUND_SIZE, { difficulty: opts.difficulty ?? 'all' }))
+    setRound(buildRound(id, ROUND_SIZE, { difficulty: opts.difficulty ?? 'all', lang }))
     setScreen('quiz')
   }
 
@@ -40,7 +42,7 @@ export default function App() {
     setMode('classic')
     setDifficulty('all')
     setIsDaily(true)
-    setRound(buildRound('all', ROUND_SIZE, { rng: rngForDate(todayKey()) }))
+    setRound(buildRound('all', ROUND_SIZE, { rng: rngForDate(todayKey()), lang }))
     setScreen('quiz')
   }
 
@@ -54,7 +56,7 @@ export default function App() {
       startDaily()
       return
     }
-    setRound(buildRound(categoryId, ROUND_SIZE, { difficulty }))
+    setRound(buildRound(categoryId, ROUND_SIZE, { difficulty, lang }))
     setScreen('quiz')
   }
 

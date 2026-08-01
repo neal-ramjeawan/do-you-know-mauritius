@@ -1,4 +1,14 @@
 import { QUESTIONS, CATEGORIES } from '../data/questions.js'
+import { QUESTIONS_FR } from '../data/questions.fr.js'
+
+function localizedQuestions(lang = 'en') {
+  if (lang !== 'fr') return QUESTIONS
+
+  return QUESTIONS.map((question) => {
+    const override = QUESTIONS_FR[question.id]
+    return override ? { ...question, ...override } : question
+  })
+}
 
 // Fisher–Yates shuffle — never mutates the input. Accepts a pluggable
 // rng (defaults to Math.random) so the daily challenge can use a seeded
@@ -20,7 +30,8 @@ function applyDifficulty(pool, difficulty) {
 // Returns a round of questions, each with its own options re-shuffled and
 // the answer index remapped to match. `rng` defaults to Math.random for
 // normal play; pass a seeded rng for deterministic rounds (daily challenge).
-export function buildRound(categoryId, count, { difficulty = 'all', rng = Math.random } = {}) {
+export function buildRound(categoryId, count, { difficulty = 'all', rng = Math.random, lang = 'en' } = {}) {
+  const questionBank = localizedQuestions(lang)
   let pool
   if (categoryId === 'all') {
     // Draw evenly across categories so a mixed round doesn't skew
@@ -28,7 +39,7 @@ export function buildRound(categoryId, count, { difficulty = 'all', rng = Math.r
     const perCategory = Math.ceil(count / CATEGORIES.length)
     pool = shuffle(
       CATEGORIES.flatMap((cat) =>
-        shuffle(applyDifficulty(QUESTIONS.filter((q) => q.category === cat.id), difficulty), rng).slice(
+        shuffle(applyDifficulty(questionBank.filter((q) => q.category === cat.id), difficulty), rng).slice(
           0,
           perCategory,
         ),
@@ -36,7 +47,7 @@ export function buildRound(categoryId, count, { difficulty = 'all', rng = Math.r
       rng,
     )
   } else {
-    pool = applyDifficulty(QUESTIONS.filter((q) => q.category === categoryId), difficulty)
+    pool = applyDifficulty(questionBank.filter((q) => q.category === categoryId), difficulty)
   }
 
   const chosen = shuffle(pool, rng).slice(0, Math.min(count, pool.length))

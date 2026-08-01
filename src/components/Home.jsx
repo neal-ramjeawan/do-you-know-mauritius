@@ -1,9 +1,11 @@
 import { DodoMark, Footprint, ClockIcon, BadgeIcon } from './Marks.jsx'
 import { TOTAL_QUESTIONS, CATEGORIES } from '../data/questions.js'
 import { hasPlayedDailyToday } from '../lib/badges.js'
+import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 export default function Home({ onStart, onStartDaily, onViewBadges }) {
   const playedToday = hasPlayedDailyToday()
+  const { t } = useLanguage()
 
   return (
     <div className="px-5 sm:px-8 pt-6 pb-16 max-w-3xl mx-auto">
@@ -18,17 +20,15 @@ export default function Home({ onStart, onStartDaily, onViewBadges }) {
         <DodoMark className="w-32 h-32 sm:w-40 sm:h-40 text-turmeric-400 drop-shadow-[0_0_40px_rgba(227,167,43,0.25)]" />
 
         <p className="mt-6 font-mono text-xs uppercase tracking-[0.3em] text-lagoon-400">
-          Île Maurice · Indian Ocean
+          {t('home.eyebrow')}
         </p>
 
         <h1 className="mt-3 font-display text-4xl sm:text-5xl font-medium text-shell-100 text-balance leading-[1.1]">
-          How well do you<br className="hidden sm:block" /> know Mauritius?
+          {t('home.titleLine1')}<br className="hidden sm:block" /> {t('home.titleLine2')}
         </h1>
 
         <p className="mt-4 max-w-md text-shell-300/80 leading-relaxed">
-          {TOTAL_QUESTIONS}+ questions on history, geography, wildlife, culture,
-          and food, played 10 at a time — every one of them about a single
-          island in the Indian Ocean.
+          {t('home.subtitle')}
         </p>
 
         <div className="mt-8 flex items-center gap-4">
@@ -36,7 +36,7 @@ export default function Home({ onStart, onStartDaily, onViewBadges }) {
             onClick={onStart}
             className="group inline-flex items-center gap-3 bg-turmeric-500 hover:bg-turmeric-400 text-basalt font-body font-semibold px-7 py-3.5 rounded-full transition-colors"
           >
-            Start the quiz
+            {t('home.startQuiz')}
             <Footprint className="w-4 h-4 rotate-90 opacity-70 group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
@@ -47,16 +47,16 @@ export default function Home({ onStart, onStartDaily, onViewBadges }) {
             className="inline-flex items-center gap-1.5 font-mono text-xs text-shell-300/50 hover:text-turmeric-400 transition-colors underline underline-offset-4 decoration-shell-300/20"
           >
             <BadgeIcon className="w-3.5 h-3.5" />
-            Badges
+            {t('home.badges')}
           </button>
         </div>
 
         <div className="mt-10 flex items-center gap-6 font-mono text-xs text-shell-300/60">
-          <span>{TOTAL_QUESTIONS}+ questions</span>
+          <span>{t('home.statQuestions')}</span>
           <span className="w-1 h-1 rounded-full bg-shell-300/30" />
-          <span>{CATEGORIES.length} categories</span>
+          <span>{t('home.statCategories')}</span>
           <span className="w-1 h-1 rounded-full bg-shell-300/30" />
-          <span>free to play</span>
+          <span>{t('home.statFree')}</span>
         </div>
       </div>
 
@@ -66,10 +66,11 @@ export default function Home({ onStart, onStartDaily, onViewBadges }) {
       >
         <div>
           <p className="font-display text-lg text-lagoon-300">
-            Daily Challenge{playedToday && ' — done for today'}
+            {t('common.dailyChallenge')}
+            {playedToday && t('home.dailyChallengeDone')}
           </p>
           <p className="text-sm text-shell-300/60 mt-0.5">
-            The same 10 questions for everyone, every day.
+            {t('home.dailyChallengeBlurb')}
           </p>
         </div>
         <ClockIcon className="w-5 h-5 text-lagoon-400 flex-shrink-0" />
@@ -81,15 +82,14 @@ export default function Home({ onStart, onStartDaily, onViewBadges }) {
             key={cat.id}
             className="rounded-xl border border-shell-300/10 bg-depths-800/50 px-3.5 py-3"
           >
-            <p className="font-display text-sm text-shell-100">{cat.label}</p>
-            <p className="mt-0.5 text-xs text-shell-300/50">{cat.tagline}</p>
+            <p className="font-display text-sm text-shell-100">{t(`categories.${cat.id}.label`)}</p>
+            <p className="mt-0.5 text-xs text-shell-300/50">{t(`categories.${cat.id}.tagline`)}</p>
           </div>
         ))}
       </div>
 
       <p className="mt-8 text-center text-xs text-shell-300/40 leading-relaxed">
-        Named for "zwazo," the Mauritian Creole word for bird — in honour of
-        the island's most famous, and most extinct, resident.
+        {t('home.footerNote')}
       </p>
     </div>
   )

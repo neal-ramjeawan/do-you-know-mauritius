@@ -41,6 +41,14 @@ describe('Olympian trivia regression checks', () => {
     expect(s16.options).toContain('Track and field (athletics)')
     expect(s16.options).not.toContain('Swimming')
   })
+
+  it('builds a French-localized round when the language is switched to fr', () => {
+    const round = buildRound('history', 10, { lang: 'fr', rng: fixedRng([0]) })
+
+    expect(round).toHaveLength(10)
+    expect(round.every((question) => question.q !== QUESTIONS.find((base) => base.id === question.id)?.q)).toBe(true)
+    expect(round.every((question) => question.options[0] !== QUESTIONS.find((base) => base.id === question.id)?.options[0])).toBe(true)
+  })
 })
 
 describe('buildRound', () => {
