@@ -30,6 +30,19 @@ describe('shuffle', () => {
   })
 })
 
+describe('Olympian trivia regression checks', () => {
+  it('uses the correct athletics framing for the Beijing flag-bearer question', () => {
+    const p14 = QUESTIONS.find((q) => q.id === 'p14')
+    const s16 = QUESTIONS.find((q) => q.id === 's16')
+
+    expect(p14.q).toContain('track athlete')
+    expect(p14.q).not.toContain('swimmer')
+    expect(s16.q).toContain('track and field')
+    expect(s16.options).toContain('Track and field (athletics)')
+    expect(s16.options).not.toContain('Swimming')
+  })
+})
+
 describe('buildRound', () => {
   it('returns exactly `count` questions for a single category', () => {
     const round = buildRound('history', 10)

@@ -21,13 +21,12 @@ export const STRINGS = {
       subtitle:
         '150+ questions on history, geography, wildlife, culture, and food, played 10 at a time — every one of them about a single island in the Indian Ocean.',
       startQuiz: 'Start the quiz',
-      leaderboard: 'Leaderboard',
       badges: 'Badges',
       statQuestions: '150+ questions',
       statCategories: '8 categories',
       statFree: 'free to play',
       dailyChallengeDone: ' — done for today',
-      dailyChallengeBlurb: 'The same 10 questions for everyone, every day. Its own leaderboard.',
+      dailyChallengeBlurb: 'The same 10 questions for everyone, every day.',
       footerNote:
         'Named for "zwazo," the Mauritian Creole word for bird — in honour of the island\u2019s most famous, and most extinct, resident.',
     },
@@ -80,7 +79,7 @@ export const STRINGS = {
       namePlaceholder: 'Your name',
       saveScore: 'Save score',
       saving: 'Saving\u2026',
-      scoreSavedViewLeaderboard: 'Score saved \u2014 view the leaderboard',
+
       playAgain: 'Play again',
       chooseAnotherCategory: 'Choose another category',
       backToStart: 'Back to start',
@@ -154,7 +153,6 @@ export const STRINGS = {
       subtitle:
         '150+ questions sur l\u2019histoire, la g\u00e9ographie, la faune, la culture et la cuisine, en manches de 10 \u2014 toutes consacr\u00e9es \u00e0 une seule \u00eele de l\u2019oc\u00e9an Indien.',
       startQuiz: 'Commencer le quiz',
-      leaderboard: 'Classement',
       badges: 'Badges',
       statQuestions: '150+ questions',
       statCategories: '8 cat\u00e9gories',

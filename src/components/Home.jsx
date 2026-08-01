@@ -69,7 +69,7 @@ export default function Home({ onStart, onStartDaily, onViewBadges }) {
             Daily Challenge{playedToday && ' — done for today'}
           </p>
           <p className="text-sm text-shell-300/60 mt-0.5">
-            The same 10 questions for everyone, every day. Its own leaderboard.
+            The same 10 questions for everyone, every day.
           </p>
         </div>
         <ClockIcon className="w-5 h-5 text-lagoon-400 flex-shrink-0" />
