@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "do-you-know-mauritius",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2026-07-01",
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "do-you-know-mauritius",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+    }
+  ]
+}

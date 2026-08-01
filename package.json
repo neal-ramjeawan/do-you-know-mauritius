@@ -1,0 +1,35 @@
+{
+  "name": "do-you-know-mauritius",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "pages:dev": "npm run build && wrangler pages dev dist",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=do-you-know-mauritius",
+    "d1:create": "wrangler d1 create do-you-know-mauritius",
+    "d1:migrate": "wrangler d1 execute do-you-know-mauritius --remote --file=./schema.sql",
+    "d1:migrate:local": "wrangler d1 execute do-you-know-mauritius --local --file=./schema.sql"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.0",
+    "@testing-library/react": "^16.3.2",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "jsdom": "^30.0.0",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "vite": "^5.3.1",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.115.0"
+  }
+}
