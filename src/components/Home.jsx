@@ -5,7 +5,7 @@ import { useLanguage } from '../i18n/LanguageContext.jsx'
 
 export default function Home({ onStart, onStartDaily, onViewBadges }) {
   const playedToday = hasPlayedDailyToday()
-  const { t } = useLanguage()
+  const { lang, setLang, t } = useLanguage()
 
   return (
     <div className="px-5 sm:px-8 pt-6 pb-16 max-w-3xl mx-auto">
@@ -39,6 +39,31 @@ export default function Home({ onStart, onStartDaily, onViewBadges }) {
             {t('home.startQuiz')}
             <Footprint className="w-4 h-4 rotate-90 opacity-70 group-hover:translate-x-0.5 transition-transform" />
           </button>
+        </div>
+
+        <div
+          role="group"
+          aria-label={t('languageToggle.ariaLabel')}
+          className="mt-5 flex items-center gap-1 rounded-full border border-shell-300/15 bg-depths-800/60 p-1"
+        >
+          {['en', 'fr'].map((option) => {
+            const active = option === lang
+            return (
+              <button
+                key={option}
+                type="button"
+                onClick={() => setLang(option)}
+                aria-pressed={active}
+                className={`rounded-full px-3 py-1.5 text-[11px] font-mono uppercase tracking-[0.2em] transition-colors ${
+                  active
+                    ? 'bg-turmeric-500 text-basalt'
+                    : 'text-shell-300/70 hover:text-shell-100'
+                }`}
+              >
+                {option.toUpperCase()}
+              </button>
+            )
+          })}
         </div>
 
         <div className="mt-4 flex items-center justify-center gap-4">
