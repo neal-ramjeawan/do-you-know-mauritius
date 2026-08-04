@@ -1,18 +1,24 @@
 import { useState } from 'react'
+
 import Header from './components/Header.jsx'
 import Home from './components/Home.jsx'
 import CategorySelect from './components/CategorySelect.jsx'
 import Quiz from './components/Quiz.jsx'
 import ResultsScreen from './components/ResultsScreen.jsx'
 import Badges from './components/Badges.jsx'
+import Devinette from './modes/Devinette.jsx'
+
 import { buildRound, categoryById } from './lib/quiz.js'
 import { todayKey, rngForDate } from './lib/dailyChallenge.js'
 import { useLanguage } from './i18n/LanguageContext.jsx'
 
+
 const ROUND_SIZE = 10
 
+
 export default function App() {
-  const [screen, setScreen] = useState('home') // home | category | quiz | results | badges
+
+  const [screen, setScreen] = useState('home')
   const [categoryId, setCategoryId] = useState(null)
   const [mode, setMode] = useState('classic')
   const [difficulty, setDifficulty] = useState('all')
@@ -20,71 +26,134 @@ export default function App() {
   const [round, setRound] = useState([])
   const [answers, setAnswers] = useState([])
   const [previousScreen, setPreviousScreen] = useState('home')
+
   const { lang, t } = useLanguage()
 
-  const categoryLabel = isDaily
-    ? t('common.dailyChallenge')
-    : categoryId === 'all'
-      ? t('common.allCategories')
-      : t(`categories.${categoryId}.label`) ?? categoryById(categoryId)?.label ?? ''
+
+  const categoryLabel =
+    isDaily
+      ? t('common.dailyChallenge')
+      : categoryId === 'all'
+        ? t('common.allCategories')
+        : categoryId === 'ferney-special'
+          ? '🇲🇺 Ferney Special'
+          : t(`categories.${categoryId}.label`) ??
+            categoryById(categoryId)?.label ??
+            ''
+
+
 
   function startCategory(id, opts = {}) {
+
     setCategoryId(id)
     setMode(opts.mode ?? 'classic')
     setDifficulty(opts.difficulty ?? 'all')
     setIsDaily(false)
-    setRound(buildRound(id, ROUND_SIZE, { difficulty: opts.difficulty ?? 'all', lang }))
+
+
+    // NEW
+    if (id === 'ferney-special') {
+      setScreen('devinette')
+      return
+    }
+
+
+    setRound(
+      buildRound(
+        id,
+        ROUND_SIZE,
+        {
+          difficulty: opts.difficulty ?? 'all',
+          lang,
+        }
+      )
+    )
+
     setScreen('quiz')
   }
+
+
 
   function startDaily() {
     setCategoryId('all')
     setMode('classic')
     setDifficulty('all')
     setIsDaily(true)
-    setRound(buildRound('all', ROUND_SIZE, { rng: rngForDate(todayKey()), lang }))
+
+    setRound(
+      buildRound(
+        'all',
+        ROUND_SIZE,
+        {
+          rng: rngForDate(todayKey()),
+          lang,
+        }
+      )
+    )
+
     setScreen('quiz')
   }
+
+
 
   function finishRound(finalAnswers) {
     setAnswers(finalAnswers)
     setScreen('results')
   }
 
+
+
   function replay() {
+
     if (isDaily) {
       startDaily()
       return
     }
-    setRound(buildRound(categoryId, ROUND_SIZE, { difficulty, lang }))
+
+    setRound(
+      buildRound(
+        categoryId,
+        ROUND_SIZE,
+        {
+          difficulty,
+          lang,
+        }
+      )
+    )
+
     setScreen('quiz')
   }
+
+
 
   function goHome() {
     setScreen('home')
   }
 
+
   function goCategory() {
     setScreen('category')
   }
+
 
   function goBadges(fromScreen = 'home') {
     setPreviousScreen(fromScreen)
     setScreen('badges')
   }
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-turmeric-500 focus:text-basalt focus:px-4 focus:py-2 focus:rounded-full"
-      >
-        Skip to main content
-      </a>
 
-      {screen !== 'home' && <Header onHome={goHome} />}
+
+  return (
+
+    <div className="min-h-screen flex flex-col">
+
+      {screen !== 'home' && (
+        <Header onHome={goHome} />
+      )}
+
 
       <main id="main-content" className="flex-1">
+
         {screen === 'home' && (
           <Home
             onStart={goCategory}
@@ -92,10 +161,32 @@ export default function App() {
             onViewBadges={() => goBadges('home')}
           />
         )}
-        {screen === 'category' && <CategorySelect onPick={startCategory} />}
-        {screen === 'quiz' && (
-          <Quiz round={round} categoryLabel={categoryLabel} mode={mode} onFinish={finishRound} onQuit={goCategory} />
+
+
+        {screen === 'category' && (
+          <CategorySelect onPick={startCategory}/>
         )}
+
+
+
+        {screen === 'quiz' && (
+          <Quiz
+            round={round}
+            categoryLabel={categoryLabel}
+            mode={mode}
+            onFinish={finishRound}
+            onQuit={goCategory}
+          />
+        )}
+
+
+
+        {screen === 'devinette' && (
+          <Devinette onQuit={goCategory} />
+        )}
+
+
+
         {screen === 'results' && (
           <ResultsScreen
             answers={answers}
@@ -108,14 +199,27 @@ export default function App() {
             onHome={goHome}
           />
         )}
-        {screen === 'badges' && <Badges onBack={() => setScreen(previousScreen)} />}
+
+
+
+        {screen === 'badges' && (
+          <Badges
+            onBack={() => setScreen(previousScreen)}
+          />
+        )}
+
       </main>
 
+
       <footer className="px-5 sm:px-8 py-6 text-center">
+
         <p className="font-mono text-[11px] text-shell-300/30">
           Zwazo — an unofficial Mauritius trivia game
         </p>
+
       </footer>
+
     </div>
+
   )
 }
