@@ -817,6 +817,1356 @@ options:[
 {text:"Une banane 🍌",correct:false}
 ]
 
+},
+
+{
+id:71,
+category:"fun",
+
+question:
+"Je peux être plein de mots mais je ne parle jamais. Qui suis-je ?",
+
+hint:
+"On m'utilise pour écrire des histoires.",
+
+options:[
+{
+text:"Un dictionnaire 📖",
+correct:true
+},
+{
+text:"Un perroquet 🦜",
+correct:false
+},
+{
+text:"Une télévision 📺",
+correct:false
+}
+]
+
+},
+
+{
+id:72,
+category:"fun",
+
+question:
+"Je suis toujours dans ton assiette mais tu ne peux pas me manger. Qui suis-je ?",
+
+hint:
+"Je suis souvent sous les aliments.",
+
+options:[
+{
+text:"Une assiette 🍽️",
+correct:true
+},
+{
+text:"Une fourchette 🍴",
+correct:false
+},
+{
+text:"Une pomme 🍎",
+correct:false
+}
+]
+
+},
+
+{
+id:73,
+category:"fun",
+
+question:
+"Je peux être grand ou petit, mais je garde toujours la même forme. Qui suis-je ?",
+
+hint:
+"On me trouve dans le ciel la nuit.",
+
+options:[
+{
+text:"La lune 🌙",
+correct:true
+},
+{
+text:"Une voiture 🚗",
+correct:false
+},
+{
+text:"Une chaussure 👟",
+correct:false
+}
+]
+
+},
+
+{
+id:74,
+category:"fun",
+
+question:
+"Je suis plus léger qu'une plume mais personne ne peut me tenir longtemps. Qui suis-je ?",
+
+hint:
+"Tu le fais sans y penser.",
+
+options:[
+{
+text:"Ton souffle 🌬️",
+correct:true
+},
+{
+text:"Un rocher 🪨",
+correct:false
+},
+{
+text:"Un sac 🎒",
+correct:false
+}
+]
+
+},
+
+{
+id:75,
+category:"fun",
+
+question:
+"Je disparais dès que tu prononces mon nom. Qui suis-je ?",
+
+hint:
+"Il faut être silencieux pour me garder.",
+
+options:[
+{
+text:"Le silence 🤫",
+correct:true
+},
+{
+text:"Le soleil ☀️",
+correct:false
+},
+{
+text:"La pluie 🌧️",
+correct:false
+}
+]
+
+},
+
+{
+id:76,
+category:"fun",
+
+question:
+"J'ai des mains mais je ne peux pas applaudir. Qui suis-je ?",
+
+hint:
+"Je donne l'heure.",
+
+options:[
+{
+text:"Une horloge 🕒",
+correct:true
+},
+{
+text:"Un robot 🤖",
+correct:false
+},
+{
+text:"Un singe 🐒",
+correct:false
+}
+]
+
+},
+
+{
+id:77,
+category:"fun",
+
+question:
+"Je peux voyager partout dans le monde sans bouger de ma place. Qui suis-je ?",
+
+hint:
+"On me trouve dans un livre ou sur une carte.",
+
+options:[
+{
+text:"Une image 🌍",
+correct:true
+},
+{
+text:"Un avion ✈️",
+correct:false
+},
+{
+text:"Une valise 🧳",
+correct:false
+}
+]
+
+},
+
+{
+id:78,
+category:"fun",
+
+question:
+"Je suis toujours propre quand je suis sale. Qui suis-je ?",
+
+hint:
+"On m'utilise pour nettoyer.",
+
+options:[
+{
+text:"Une éponge 🧽",
+correct:true
+},
+{
+text:"Une chaussure 👟",
+correct:false
+},
+{
+text:"Un mur 🧱",
+correct:false
+}
+]
+
+},
+
+{
+id:79,
+category:"fun",
+
+question:
+"Je peux être cassé avec un seul mot. Qui suis-je ?",
+
+hint:
+"Il faut parfois tenir parole.",
+
+options:[
+{
+text:"Une promesse 🤝",
+correct:true
+},
+{
+text:"Une table 🪑",
+correct:false
+},
+{
+text:"Une bouteille 🍼",
+correct:false
+}
+]
+
+},
+
+{
+id:80,
+category:"fun",
+
+question:
+"Je suis toujours à l'heure mais je ne porte jamais de montre. Qui suis-je ?",
+
+hint:
+"Je fonctionne avec des aiguilles.",
+
+options:[
+{
+text:"Une horloge ⏰",
+correct:true
+},
+{
+text:"Un lapin 🐰",
+correct:false
+},
+{
+text:"Un chauffeur 🚗",
+correct:false
+}
+]
+
+},
+
+{
+id:81,
+category:"fun",
+
+question:
+"Je peux être ouvert ou fermé, mais je ne suis pas une porte. Qui suis-je ?",
+
+hint:
+"On peut me manger.",
+
+options:[
+{
+text:"Une bouche 😮",
+correct:true
+},
+{
+text:"Une fenêtre 🪟",
+correct:false
+},
+{
+text:"Un garage 🚗",
+correct:false
+}
+]
+
+},
+
+{
+id:82,
+category:"fun",
+
+question:
+"Je suis invisible mais je peux faire bouger les arbres. Qui suis-je ?",
+
+hint:
+"Tu me sens sur ton visage.",
+
+options:[
+{
+text:"Le vent 🌬️",
+correct:true
+},
+{
+text:"Une pierre 🪨",
+correct:false
+},
+{
+text:"Une ombre 👤",
+correct:false
+}
+]
+
+},
+
+{
+id:83,
+category:"fun",
+
+question:
+"Je monte et je descends sans jamais marcher. Qui suis-je ?",
+
+hint:
+"On me trouve dans un ascenseur.",
+
+options:[
+{
+text:"Une personne 🧍",
+correct:true
+},
+{
+text:"Une voiture 🚗",
+correct:false
+},
+{
+text:"Un poisson 🐟",
+correct:false
+}
+]
+
+},
+
+{
+id:84,
+category:"fun",
+
+question:
+"Je suis toujours devant une voiture mais jamais derrière. Qui suis-je ?",
+
+hint:
+"Je montre le chemin.",
+
+options:[
+{
+text:"Les phares 💡",
+correct:true
+},
+{
+text:"Le coffre 🧳",
+correct:false
+},
+{
+text:"Le pneu 🛞",
+correct:false
+}
+]
+
+},
+
+{
+id:85,
+category:"fun",
+
+question:
+"Je peux être attrapé mais pas lancé. Qui suis-je ?",
+
+hint:
+"On l'a parfois quand on est malade.",
+
+options:[
+{
+text:"Un rhume 🤧",
+correct:true
+},
+{
+text:"Une balle ⚽",
+correct:false
+},
+{
+text:"Une pierre 🪨",
+correct:false
+}
+]
+
+},
+
+{
+id:86,
+category:"fun",
+
+question:
+"Je peux être long ou court, mais je ne suis pas une route. Qui suis-je ?",
+
+hint:
+"Tu peux me porter sur la tête.",
+
+options:[
+{
+text:"Un cheveu 💇",
+correct:true
+},
+{
+text:"Un train 🚆",
+correct:false
+},
+{
+text:"Un serpent 🐍",
+correct:false
+}
+]
+
+},
+
+{
+id:87,
+category:"fun",
+
+question:
+"Je suis toujours en mouvement mais je reste au même endroit. Qui suis-je ?",
+
+hint:
+"Je suis accroché au mur.",
+
+options:[
+{
+text:"Les aiguilles d'une horloge 🕒",
+correct:true
+},
+{
+text:"Une voiture 🚗",
+correct:false
+},
+{
+text:"Un oiseau 🐦",
+correct:false
+}
+]
+
+},
+
+{
+id:88,
+category:"fun",
+
+question:
+"Je peux être cassé mais je ne tombe jamais par terre. Qui suis-je ?",
+
+hint:
+"On me fait entre deux personnes.",
+
+options:[
+{
+text:"Un accord 🤝",
+correct:true
+},
+{
+text:"Une chaise 🪑",
+correct:false
+},
+{
+text:"Un verre 🥛",
+correct:false
+}
+]
+
+},
+
+{
+id:89,
+category:"fun",
+
+question:
+"Je suis toujours humide quand je travaille. Qui suis-je ?",
+
+hint:
+"Je nettoie souvent la maison.",
+
+options:[
+{
+text:"Une serpillière 🧹",
+correct:true
+},
+{
+text:"Un sèche-cheveux 💨",
+correct:false
+},
+{
+text:"Une lampe 💡",
+correct:false
+}
+]
+
+},
+
+{
+id:90,
+category:"fun",
+
+question:
+"Je peux être rempli mais je n'ai pas de ventre. Qui suis-je ?",
+
+hint:
+"On peut y mettre des informations.",
+
+options:[
+{
+text:"Un formulaire 📝",
+correct:true
+},
+{
+text:"Un poisson 🐟",
+correct:false
+},
+{
+text:"Une chaussure 👟",
+correct:false
+}
+]
+
+},
+
+{
+id:91,
+category:"fun",
+
+question:
+"Je suis toujours devant toi mais tu ne peux jamais me rattraper. Qui suis-je ?",
+
+hint:
+"Je concerne demain.",
+
+options:[
+{
+text:"Le futur ⏳",
+correct:true
+},
+{
+text:"Ton voisin 😂",
+correct:false
+},
+{
+text:"Ton téléphone 📱",
+correct:false
+}
+]
+
+},
+
+{
+id:92,
+category:"fun",
+
+question:
+"Je peux être rouge, jaune ou vert et je donne des ordres aux voitures. Qui suis-je ?",
+
+hint:
+"Je suis au bord des routes.",
+
+options:[
+{
+text:"Un feu de circulation 🚦",
+correct:true
+},
+{
+text:"Une fleur 🌺",
+correct:false
+},
+{
+text:"Un ballon 🎈",
+correct:false
+}
+]
+
+},
+
+{
+id:93,
+category:"fun",
+
+question:
+"Je peux avoir une tête et une queue mais pas de corps. Qui suis-je ?",
+
+hint:
+"On peut me lancer.",
+
+options:[
+{
+text:"Une pièce 🪙",
+correct:true
+},
+{
+text:"Un chat 🐱",
+correct:false
+},
+{
+text:"Un serpent 🐍",
+correct:false
+}
+]
+
+},
+
+{
+id:94,
+category:"fun",
+
+question:
+"Je suis invisible mais je peux remplir une pièce. Qui suis-je ?",
+
+hint:
+"Tu peux m'entendre.",
+
+options:[
+{
+text:"Un son 🔊",
+correct:true
+},
+{
+text:"Un canapé 🛋️",
+correct:false
+},
+{
+text:"Une table 🪑",
+correct:false
+}
+]
+
+},
+
+{
+id:95,
+category:"fun",
+
+question:
+"Je suis toujours devant une personne mais elle ne peut pas me voir. Qui suis-je ?",
+
+hint:
+"Je suis lié au regard.",
+
+options:[
+{
+text:"L'avenir 🔮",
+correct:true
+},
+{
+text:"Son dos 🎒",
+correct:false
+},
+{
+text:"Ses chaussures 👟",
+correct:false
+}
+]
+
+},
+
+{
+id:96,
+category:"fun",
+
+question:
+"Je peux être donné, mais je ne peux pas être repris. Qui suis-je ?",
+
+hint:
+"On le fait souvent avec quelqu'un qu'on aime.",
+
+options:[
+{
+text:"Un compliment 😊",
+correct:true
+},
+{
+text:"Un ballon 🎈",
+correct:false
+},
+{
+text:"Un gâteau 🍰",
+correct:false
+}
+]
+
+},
+
+{
+id:97,
+category:"fun",
+
+question:
+"Je suis plus grand quand je suis jeune et plus petit quand je suis vieux. Qui suis-je ?",
+
+hint:
+"Je peux éclairer une pièce.",
+
+options:[
+{
+text:"Une bougie 🕯️",
+correct:true
+},
+{
+text:"Un arbre 🌳",
+correct:false
+},
+{
+text:"Une montagne ⛰️",
+correct:false
+}
+]
+
+},
+
+{
+id:98,
+category:"fun",
+
+question:
+"Je n'ai pas de bouche mais je peux répondre. Qui suis-je ?",
+
+hint:
+"Je répète ce que tu dis.",
+
+options:[
+{
+text:"Un écho 🔊",
+correct:true
+},
+{
+text:"Un poisson 🐟",
+correct:false
+},
+{
+text:"Une chaise 🪑",
+correct:false
+}
+]
+
+},
+
+{
+id:99,
+category:"fun",
+
+question:
+"Je peux être perdu sans tomber. Qui suis-je ?",
+
+hint:
+"On le cherche souvent quand on est stressé.",
+
+options:[
+{
+text:"Le temps ⏳",
+correct:true
+},
+{
+text:"Une chaussure 👟",
+correct:false
+},
+{
+text:"Une voiture 🚗",
+correct:false
+}
+]
+
+},
+
+{
+id:100,
+category:"fun",
+
+question:
+"Je suis toujours à côté de toi mais tu ne peux pas me toucher. Qui suis-je ?",
+
+hint:
+"Je te suis quand il y a de la lumière.",
+
+options:[
+{
+text:"Ton ombre 👤",
+correct:true
+},
+{
+text:"Ton voisin 😂",
+correct:false
+},
+{
+text:"Ton téléphone 📱",
+correct:false
+}
+]
+
+},
+
+{
+id:101,
+category:"fun",
+
+question:
+"Je peux être rouge, vert ou jaune mais je ne suis pas un fruit. Qui suis-je ?",
+
+hint:
+"Je contrôle la circulation.",
+
+options:[
+{
+text:"Un feu de circulation 🚦",
+correct:true
+},
+{
+text:"Une banane 🍌",
+correct:false
+},
+{
+text:"Une fleur 🌺",
+correct:false
+}
+]
+
+},
+
+{
+id:102,
+category:"fun",
+
+question:
+"Je suis toujours mouillé avant de sécher quelque chose. Qui suis-je ?",
+
+hint:
+"On me trouve souvent dans une cuisine.",
+
+options:[
+{
+text:"Une éponge 🧽",
+correct:true
+},
+{
+text:"Un livre 📖",
+correct:false
+},
+{
+text:"Une chaussure 👟",
+correct:false
+}
+]
+
+},
+
+{
+id:103,
+category:"fun",
+
+question:
+"J'ai un œil mais je ne vois rien. Qui suis-je ?",
+
+hint:
+"On peut m'utiliser pour coudre.",
+
+options:[
+{
+text:"Une aiguille 🪡",
+correct:true
+},
+{
+text:"Un cyclope 👁️",
+correct:false
+},
+{
+text:"Une caméra 📷",
+correct:false
+}
+]
+
+},
+
+{
+id:104,
+category:"fun",
+
+question:
+"Je peux ouvrir des portes mais je n'ai pas de mains. Qui suis-je ?",
+
+hint:
+"On me garde souvent dans une poche.",
+
+options:[
+{
+text:"Une clé 🔑",
+correct:true
+},
+{
+text:"Une souris 🐭",
+correct:false
+},
+{
+text:"Une chaussure 👞",
+correct:false
+}
+]
+
+},
+
+{
+id:105,
+category:"fun",
+
+question:
+"Je suis toujours dans l'eau mais je ne nage jamais. Qui suis-je ?",
+
+hint:
+"On me trouve dans une rivière ou une mer.",
+
+options:[
+{
+text:"Une pierre 🪨",
+correct:true
+},
+{
+text:"Un poisson 🐟",
+correct:false
+},
+{
+text:"Un bateau 🚢",
+correct:false
+}
+]
+
+},
+
+{
+id:106,
+category:"fun",
+
+question:
+"Je peux courir sans avoir de jambes et chanter sans avoir de bouche. Qui suis-je ?",
+
+hint:
+"Je suis dans la nature.",
+
+options:[
+{
+text:"Une rivière 🌊",
+correct:true
+},
+{
+text:"Un cheval 🐴",
+correct:false
+},
+{
+text:"Une radio 📻",
+correct:false
+}
+]
+
+},
+
+{
+id:107,
+category:"fun",
+
+question:
+"Je deviens plus grand quand on m'enlève quelque chose. Qui suis-je ?",
+
+hint:
+"On me trouve dans le sol.",
+
+options:[
+{
+text:"Un trou 🕳️",
+correct:true
+},
+{
+text:"Une maison 🏠",
+correct:false
+},
+{
+text:"Une bouteille 🍼",
+correct:false
+}
+]
+
+},
+
+{
+id:108,
+category:"fun",
+
+question:
+"Je peux être chaud ou froid mais je reste toujours liquide. Qui suis-je ?",
+
+hint:
+"On me boit souvent.",
+
+options:[
+{
+text:"Une boisson 🥤",
+correct:true
+},
+{
+text:"Une pierre 🪨",
+correct:false
+},
+{
+text:"Un nuage ☁️",
+correct:false
+}
+]
+
+},
+
+{
+id:109,
+category:"fun",
+
+question:
+"Je suis rempli de mots mais je ne parle jamais. Qui suis-je ?",
+
+hint:
+"On peut me lire.",
+
+options:[
+{
+text:"Un livre 📚",
+correct:true
+},
+{
+text:"Un téléphone 📱",
+correct:false
+},
+{
+text:"Un perroquet 🦜",
+correct:false
+}
+]
+
+},
+
+{
+id:110,
+category:"fun",
+
+question:
+"Je peux être noir ou blanc et je tombe du ciel. Qui suis-je ?",
+
+hint:
+"Attention, je ne suis pas toujours de la neige.",
+
+options:[
+{
+text:"Un nuage ☁️",
+correct:true
+},
+{
+text:"Un piano 🎹",
+correct:false
+},
+{
+text:"Un chat 🐈",
+correct:false
+}
+]
+
+},
+
+{
+id:111,
+category:"fun",
+
+question:
+"Je peux être porté mais je ne suis pas un vêtement. Qui suis-je ?",
+
+hint:
+"On me met sur le dos.",
+
+options:[
+{
+text:"Un sac 🎒",
+correct:true
+},
+{
+text:"Une table 🪑",
+correct:false
+},
+{
+text:"Une maison 🏠",
+correct:false
+}
+]
+
+},
+
+{
+id:112,
+category:"fun",
+
+question:
+"Je peux être cassé mais je ne fais pas de bruit. Qui suis-je ?",
+
+hint:
+"On peut l'avoir envers quelqu'un.",
+
+options:[
+{
+text:"La confiance 🤝",
+correct:true
+},
+{
+text:"Une assiette 🍽️",
+correct:false
+},
+{
+text:"Une fenêtre 🪟",
+correct:false
+}
+]
+
+},
+
+{
+id:113,
+category:"fun",
+
+question:
+"Je suis toujours en face de toi quand tu regardes un miroir. Qui suis-je ?",
+
+hint:
+"Tu me vois mais je ne suis pas une autre personne.",
+
+options:[
+{
+text:"Ton reflet 🪞",
+correct:true
+},
+{
+text:"Ton voisin 😂",
+correct:false
+},
+{
+text:"Ton professeur 👨‍🏫",
+correct:false
+}
+]
+
+},
+
+{
+id:114,
+category:"fun",
+
+question:
+"Je peux être rapide ou lent mais je n'ai pas de jambes. Qui suis-je ?",
+
+hint:
+"On me mesure souvent avec une horloge.",
+
+options:[
+{
+text:"Le temps ⏰",
+correct:true
+},
+{
+text:"Un escargot 🐌",
+correct:false
+},
+{
+text:"Une voiture 🚗",
+correct:false
+}
+]
+
+},
+
+{
+id:115,
+category:"fun",
+
+question:
+"Je peux avoir beaucoup de dents mais je ne mords jamais. Qui suis-je ?",
+
+hint:
+"On m'utilise pour les cheveux.",
+
+options:[
+{
+text:"Un peigne 💇",
+correct:true
+},
+{
+text:"Un requin 🦈",
+correct:false
+},
+{
+text:"Une fourchette 🍴",
+correct:false
+}
+]
+
+},
+
+{
+id:116,
+category:"fun",
+
+question:
+"Je suis invisible mais je peux faire peur la nuit. Qui suis-je ?",
+
+hint:
+"On l'imagine parfois dans le noir.",
+
+options:[
+{
+text:"Un bruit étrange 👻",
+correct:true
+},
+{
+text:"Une table 🪑",
+correct:false
+},
+{
+text:"Une banane 🍌",
+correct:false
+}
+]
+
+},
+
+{
+id:117,
+category:"fun",
+
+question:
+"Je peux être plein sans être lourd. Qui suis-je ?",
+
+hint:
+"On me remplit avec des informations.",
+
+options:[
+{
+text:"Un cerveau 🧠",
+correct:true
+},
+{
+text:"Une valise 🧳",
+correct:false
+},
+{
+text:"Un camion 🚚",
+correct:false
+}
+]
+
+},
+
+{
+id:118,
+category:"fun",
+
+question:
+"Je peux être long ou court et je pousse sur ta tête. Qui suis-je ?",
+
+hint:
+"Tu peux me couper chez le coiffeur.",
+
+options:[
+{
+text:"Un cheveu 💇",
+correct:true
+},
+{
+text:"Un arbre 🌳",
+correct:false
+},
+{
+text:"Une corde 🪢",
+correct:false
+}
+]
+
+},
+
+{
+id:119,
+category:"fun",
+
+question:
+"Je suis toujours devant toi quand tu avances, mais tu ne peux jamais m'atteindre. Qui suis-je ?",
+
+hint:
+"Je représente ce qui arrive après maintenant.",
+
+options:[
+{
+text:"Le futur ⏳",
+correct:true
+},
+{
+text:"Le passé 📜",
+correct:false
+},
+{
+text:"Ton téléphone 📱",
+correct:false
+}
+]
+
+},
+
+{
+id:120,
+category:"fun",
+
+question:
+"Je peux tomber mais je ne me casse jamais. Qui suis-je ?",
+
+hint:
+"Je tombe souvent en hiver dans certains pays.",
+
+options:[
+{
+text:"La neige ❄️",
+correct:true
+},
+{
+text:"Un verre 🥛",
+correct:false
+},
+{
+text:"Une chaise 🪑",
+correct:false
+}
+]
+
 }
 
 ];

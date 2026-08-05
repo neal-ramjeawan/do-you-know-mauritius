@@ -19,8 +19,7 @@ export const FERNEY_SPECIAL = {
 
   questions: [
 
-    ...FUN,
-    ...MORE
+    ...FUN
 
   ],
 
