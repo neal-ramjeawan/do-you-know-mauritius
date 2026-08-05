@@ -4,6 +4,7 @@ import { CULTURE } from "./ferneyQuestions/culture";
 import { NATURE } from "./ferneyQuestions/nature";
 import { HISTORY } from "./ferneyQuestions/history";
 import { FUN } from "./ferneyQuestions/fun";
+import { MORE } from "./ferneyQuestions/more";
 
 
 export const FERNEY_SPECIAL = {
@@ -18,12 +19,8 @@ export const FERNEY_SPECIAL = {
 
   questions: [
 
-    ...FOOD,
-    ...PLACES,
-    ...CULTURE,
-    ...NATURE,
-    ...HISTORY,
     ...FUN,
+    ...MORE
 
   ],
 
