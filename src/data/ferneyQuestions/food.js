@@ -113,34 +113,6 @@ correct: false
 
 
 {
-id: 5,
-category: "food",
-
-question:
-"Je suis un plat avec du riz, des grains, du curry et plusieurs accompagnements. Qui suis-je ?",
-
-hint:
-"On me retrouve souvent dans les repas mauriciens.",
-
-options: [
-{
-text: "Bol renversé 🍚",
-correct: false
-},
-{
-text: "Mine frit 🍜",
-correct: false
-},
-{
-text: "Repas mauricien traditionnel 🍛",
-correct: true
-}
-]
-
-},
-
-
-{
 id: 6,
 category: "food",
 
@@ -148,7 +120,7 @@ question:
 "Je suis une boisson gazeuse mauricienne très connue depuis longtemps. Qui suis-je ?",
 
 hint:
-"Mon nom commence par 'Coca'... mais je suis locale.",
+"Mon nom commence par 'E'... mais je suis locale.",
 
 options: [
 {
@@ -160,7 +132,7 @@ text: "Sprite 🍋",
 correct: false
 },
 {
-text: "Coca-Cola Company (version locale) 🥤",
+text: "Eski 🥤",
 correct: true
 }
 ]

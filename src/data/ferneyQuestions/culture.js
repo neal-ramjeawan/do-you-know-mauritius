@@ -29,34 +29,6 @@ correct:false
 
 
 {
-id:14,
-category:"culture",
-
-question:
-"Je suis une langue parlée tous les jours par beaucoup de Mauriciens. Qui suis-je ?",
-
-hint:
-"Je mélange plusieurs influences culturelles.",
-
-options:[
-{
-text:"Créole Mauricien 🇲🇺",
-correct:true
-},
-{
-text:"Espagnol 🇪🇸",
-correct:false
-},
-{
-text:"Russe 🇷🇺",
-correct:false
-}
-]
-
-},
-
-
-{
 id:15,
 category:"culture",
 
